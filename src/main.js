@@ -60,7 +60,7 @@ class Player {
     this.id = Date.now();
     this.wins = 0;
     this.hand = [];
-    console.log(this.hand)
+    console.log('hand', this.hand)
   }
   playCard() {
     var card = playerOne.hand.shift()
@@ -82,7 +82,8 @@ class Game {
     this.playerTwo = new Player();
     this.turn = 0;
     this.shuffle();
-    console.log(this.fullDeck)
+    this.deal();
+    console.log('allcards', this.fullDeck)
   }
   shuffle() {
     var randomNum, replaceNum;
@@ -95,13 +96,18 @@ class Game {
   }
   deal() {
     for (var i = 0; i < this.fullDeck.length; i++) {
-      if (this.turn % 2 === 0) {
+      if (i % 2 === 0) {
         this.playerOne.hand.push(this.fullDeck[i]);
-      } else if (this.turn % 2 === 1) {
+      } else if (i % 2 === 1) {
         this.playerTwo.hand.push(this.fullDeck[i]);
       }
+      console.log('turn', this.turn)
     }
-    console.log(game.)
+    console.log('playerOnehand', this.playerOne.hand)
+    console.log('playertwohand', this.playerTwo.hand)
+
+
+
 
     //takes the main deck
     //deals one card to player 1
@@ -138,4 +144,3 @@ class Game {
 // console.log(cards)
 
 var gameOne = new Game ();
-console.log(gameOne.fullDeck)
