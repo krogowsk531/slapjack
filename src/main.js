@@ -1,5 +1,5 @@
+var centerDeck = []
 var cards = [
-  './assets/back.png',
   './assets/blue-01.png',
   './assets/blue-02.png',
   './assets/blue-03.png',
@@ -52,7 +52,6 @@ var cards = [
   './assets/red-jack.png',
   './assets/red-queen.png',
   './assets/red-king.png',
-  './assets/wild.png',
 ];
 
 class Player {
@@ -60,11 +59,15 @@ class Player {
     this.id = Date.now();
     this.wins = 0;
     this.hand = [];
-    console.log('hand', this.hand)
+    this.playerOne = new Player();
+    // this.playerTwo = new Player();
+    // console.log('hand', this.hand)
+    this.playCard();
   }
   playCard() {
     var card = playerOne.hand.shift()
     centerDeck.push(card);
+    console.log('card', card)
   }
   saveWinsToStorage() {
 
@@ -101,7 +104,6 @@ class Game {
       } else if (i % 2 === 1) {
         this.playerTwo.hand.push(this.fullDeck[i]);
       }
-      console.log('turn', this.turn)
     }
     console.log('playerOnehand', this.playerOne.hand)
     console.log('playertwohand', this.playerTwo.hand)
@@ -130,6 +132,7 @@ class Game {
 
   }
 }
+//playerOne hand at zero push it into centerDeck
 
 
 
@@ -137,10 +140,9 @@ class Game {
 // topCard.addEventListener('click', playerOne.deal);
 
 
-// var playerOne = new Player();
+var playerOne = new Player();
 // // playerOneDeal();
 // console.log(playerOne);
-// console.log(centerDeck);
-// console.log(cards)
+console.log('centerDeck', centerDeck);
 
 var gameOne = new Game ();
