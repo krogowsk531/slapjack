@@ -1,4 +1,4 @@
-var centerDeck = []
+// var playerOneHand = document.querySelector('.right-side-hand')
 var cards = [
   './assets/blue-01.png',
   './assets/blue-02.png',
@@ -54,20 +54,47 @@ var cards = [
   './assets/red-king.png',
 ];
 
+window.addEventListener('keyup', keyPressed)
+
+function keyPressed(event) {
+  console.log(event.key)
+  if (event.key === 'q') {
+    gameOne.playerOne.playCard();
+  } else if (event.key === 'p') {
+    gameOne.playerTwo.playCard();
+  } else if (event.key === 'f') {
+    gameOne.slap('playerOne');
+  } else if (event.key === 'j') {
+    gameOne.slap('playerTwo');
+  }
+
+  //if event.key is some letter do the player specific event
+  //else do nothing
+}
+
 class Player {
   constructor() {
     this.id = Date.now();
     this.wins = 0;
     this.hand = [];
-    this.playerOne = new Player();
+    // this.playerOne = new Player();
     // this.playerTwo = new Player();
     // console.log('hand', this.hand)
-    this.playCard();
+
   }
   playCard() {
-    var card = playerOne.hand.shift()
-    centerDeck.push(card);
+    // console.log('hand', this.hand)
+    var card = this.hand.shift()
+    gameOne.fullDeck.push(card);
+    // gameOne.fullDeck.length = 0;
     console.log('card', card)
+    // console.log('centerDeck', centerDeck);
+    //player one flips a card
+    //it is added to the middle pile array
+    //it is removed from playerOne hand array
+    //player two flips a card
+    //it is added to the middle pile array
+    //it is removed from playerTwo hand array
   }
   saveWinsToStorage() {
 
@@ -98,33 +125,47 @@ class Game {
     }
   }
   deal() {
-    for (var i = 0; i < this.fullDeck.length; i++) {
+    var deckNumber = this.fullDeck.length;
+    for (var i = 0; i < deckNumber; i++) {
       if (i % 2 === 0) {
-        this.playerOne.hand.push(this.fullDeck[i]);
+        this.playerOne.hand.push(this.fullDeck.shift());
       } else if (i % 2 === 1) {
-        this.playerTwo.hand.push(this.fullDeck[i]);
+        this.playerTwo.hand.push(this.fullDeck.shift());
       }
     }
     console.log('playerOnehand', this.playerOne.hand)
     console.log('playertwohand', this.playerTwo.hand)
-
-
-
-
-    //takes the main deck
-    //deals one card to player 1
-    //deals one card to player 2
-    //stops dealing when no cards are left
   }
-  turn() {
+  round() {
 
   }
   toMiddle() {
 
   }
-  slap() {
+  slap(player) {
+    console.log('SlapJack')
+    // var card = this.hand.shift()
+    // gameOne.fullDeck.push(card);
+    //if jack is on top then get the pile and suffle it back into the players deck
+    //jack would be on top of the fullDeck (fullDeck.length -1]
+    //would be the last card in (so the last element in the fullDeck array)
+    //pile is the fullDeck
+    //put current fullDeck into this player hand and then shuffle
+    //if slap is wrong put current fullDeck into the other players hand and then shuffle
+    for (var i = 0; i < this.fullDeck.length; i++) {
+    if (this.fullDeck[this.fullDeck.length - 1].includes('jack.png')) {
+      this.playerOne.hand.push(this.fullDeck[i])
+      console.log('working')
+    }
+      // this.hand.push(this.fullDeck.shift())
+      //every card from fullDeck is in hand and there are no cards in fullDeck
+    //  **take fullDeck and shuffle to this.hand**
+      //every card we now have in our this.hand needs to be shuffled
+    // } else {
+      //**take fullDeck and shuffle to other hand**
+      }
+    }
 
-  }
   wins() {
 
   }
@@ -132,6 +173,15 @@ class Game {
 
   }
 }
+
+
+//condition 1
+//if a jack appears either player can slap it
+// if a deck is slapped incorrectly cards go to other player
+//if a double card appears either player can slap it
+//if a sandwhich appears either play can slap it
+
+
 //playerOne hand at zero push it into centerDeck
 
 
@@ -140,9 +190,9 @@ class Game {
 // topCard.addEventListener('click', playerOne.deal);
 
 
-var playerOne = new Player();
+// var playerOne = new Player();
 // // playerOneDeal();
 // console.log(playerOne);
-console.log('centerDeck', centerDeck);
+
 
 var gameOne = new Game ();
