@@ -156,7 +156,7 @@ class Game {
     if (this.fullDeck[this.fullDeck.length - 1].includes('jack.png')) {
       this.playerOne.hand.push(this.fullDeck[i])
       console.log('working')
-    }
+        }
       // this.hand.push(this.fullDeck.shift())
       //every card from fullDeck is in hand and there are no cards in fullDeck
     //  **take fullDeck and shuffle to this.hand**
@@ -164,7 +164,15 @@ class Game {
     // } else {
       //**take fullDeck and shuffle to other hand**
       }
-    }
+      this.fullDeck = [];
+      // var randomNum, replaceNum;
+      // for (var i = this.playerOne.hand.length - 1; i > 0; i --) {
+      //   randomNum = Math.floor(Math.random() * (i + 1));
+      //   replaceNum = this.playerOne.hand[i];
+      //   this.playerOne.hand[i] = this.playerOne.hand[i][randomNum];
+      //   this.playerOne.hand[i][randomNum] = replaceNum;
+      //   console.log('shuffle', this.playerOne.hand[i])
+      }
 
   wins() {
 
