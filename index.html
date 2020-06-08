@@ -2,26 +2,26 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="./styles.css">
-    <!-- <link rel="stylesheet" href="./styles.css"> -->
     <title>SlapJack</title>
   </head>
   <body>
-    <main>
-      <h1>
-      </h1>
-      <section>
-        <article class="right-side-deck">
+    <main class="game-area">
+      <h1></h1>
+      <section class="cards-grid">
+        <article class="card-deck right-side-deck">
           <img class="top-card" src="./assets/back.png" alt="Card on Top of Deck"/>
           <p></p>
-        </<article>
-        <article class="middle-deck">
-        </<article>
-        <article class="left-side-deck">
+        </article>
+        <article class="card-deck middle-deck">
+          <img class="top-card" src="./assets/back.png" alt="Card on Top of Deck"/>
+        </article>
+        <article class="card-deck left-side-deck">
           <img class="top-card" src="./assets/back.png" alt="Card on Top of Deck"/>
           <p></p>
         </article>
       </section>
     </main>
+    <script src="./src/data.js"></script>
     <script src="./src/game.js"></script>
     <script src="./src/player.js"></script>
     <script src="./src/main.js"></script>

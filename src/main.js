@@ -1,62 +1,19 @@
-// var playerOneHand = document.querySelector('.right-side-hand')
-var cards = [
-  // './assets/blue-01.png',
-  // './assets/blue-02.png',
-  // './assets/blue-03.png',
-  // './assets/blue-04.png',
-  // './assets/blue-05.png',
-  // './assets/blue-06.png',
-  // './assets/blue-07.png',
-  // './assets/blue-08.png',
-  // './assets/blue-09.png',
-  // './assets/blue-10.png',
-  './assets/blue-jack.png',
-  './assets/blue-queen.png',
-  './assets/blue-king.png',
-  // './assets/gold-01.png',
-  // './assets/gold-02.png',
-  // './assets/gold-03.png',
-  // './assets/gold-04.png',
-  // './assets/gold-05.png',
-  // './assets/gold-06.png',
-  // './assets/gold-07.png',
-  // './assets/gold-08.png',
-  // './assets/gold-09.png',
-  // './assets/gold-10.png',
-  './assets/gold-jack.png',
-  './assets/gold-queen.png',
-  './assets/gold-king.png',
-  // './assets/green-01.png',
-  // './assets/green-02.png',
-  // './assets/green-03.png',
-  // './assets/green-04.png',
-  // './assets/green-05.png',
-  // './assets/green-06.png',
-  // './assets/green-07.png',
-  // './assets/green-08.png',
-  // './assets/green-09.png',
-  // './assets/green-10.png',
-  './assets/green-jack.png',
-  './assets/green-queen.png',
-  './assets/green-king.png',
-  // './assets/red-01.png',
-  // './assets/red-02.png',
-  // './assets/red-03.png',
-  // './assets/red-04.png',
-  // './assets/red-05.png',
-  // './assets/red-06.png',
-  // './assets/red-07.png',
-  // './assets/red-08.png',
-  // './assets/red-09.png',
-  // './assets/red-10.png',
-  './assets/red-jack.png',
-  './assets/red-queen.png',
-  './assets/red-king.png',
-];
+//can not deal twice in a row
+//If a player slaps when neither a Jack, Double, or Sandwich is on top of the central pile, the player who slapped loses the card on top of their hand and it is added to the bottom of their opponent’s hand.
 
-if (typeof window !== 'undefined') {
-  window.addEventListener('keyup', keyPressed)
-}
+
+
+
+
+
+console.log('is working', cards)
+
+// if (typeof window !== 'undefined') {
+//   window.addEventListener('keyup', keyPressed)
+// }
+
+
+window.addEventListener('keyup', keyPressed)
 
 function keyPressed(event) {
   console.log(event.key)
@@ -113,17 +70,17 @@ class Game {
     this.playerOne = new Player();
     this.playerTwo = new Player();
     this.turn = 0;
-    this.shuffle();
+    this.shuffle(this.fullDeck);
     this.deal();
     console.log('allcards', this.fullDeck)
   }
-  shuffle() {
+  shuffle(deck) {
     var randomNum, replaceNum;
-    for (var i = this.fullDeck.length - 1; i > 0; i --) {
+    for (var i = deck.length - 1; i > 0; i --) {
       randomNum = Math.floor(Math.random() * (i + 1));
-      replaceNum = this.fullDeck[i];
-      this.fullDeck[i] = this.fullDeck[randomNum];
-      this.fullDeck[randomNum] = replaceNum;
+      replaceNum = deck[i];
+      deck[i] = deck[randomNum];
+      deck[randomNum] = replaceNum;
     }
   }
   deal() {
@@ -138,8 +95,8 @@ class Game {
     console.log('playerOnehand', this.playerOne.hand)
     console.log('playertwohand', this.playerTwo.hand)
   }
-  round() {
-
+  takeTurn() {
+    this.turn++
   }
   toMiddle() {
 
@@ -155,21 +112,21 @@ class Game {
     //put current fullDeck into this player hand and then shuffle
     //if slap is wrong put current fullDeck into the other players hand and then shuffle
     console.log('working')
-    for (var i = 0; i < this.fullDeck.length; i++) {
       var cardOne = this.fullDeck[this.fullDeck.length -1]
       var cardTwo = this.fullDeck[this.fullDeck.length -2]
       var cardThree = this.fullDeck[this.fullDeck.length -3]
-      if (this.fullDeck[this.fullDeck.length - 1].includes('jack.png')) {
+      if (this.fullDeck[this.fullDeck.length - 1].includes('jack.png') || doubleCard(cardOne, cardTwo) || sandwichCards(cardOne, cardThree)) {
+        for (var i = 0; i < this.fullDeck.length; i++) {
         this.playerOne.hand.push(this.fullDeck[i])
+      }
+        this.shuffle(this.playerOne.hand)
         // console.log('working')
-      }
-       else if (doubleCard(cardOne, cardTwo)) {
-        this.playerOne.hand.push(this.fullDeck[i])
-        console.log('doubleCard')
-      }
-       else if (sandwhichCards(cardOne, cardThree)) {
-         this.playerOne.hand.push(this.fullDeck[i])
-         console.log('sandwhich')
+       } else {
+         //if none of the conditions are met and you slap
+         //the player loses the card off the top of their hand (index 0)
+         //the other player gains the card at the bottom of their hand (deck length -1)
+         this.playerTwo.hand.push(this.playerOne.hand[0])
+         console.log('misfire')
        }
 
       //similar to double card, instead of having cardOne and cardTwo you will have card one and card three
@@ -181,17 +138,8 @@ class Game {
       //every card we now have in our this.hand needs to be shuffled
       // } else {
       //**take fullDeck and shuffle to other hand**
-    }
+    
     this.fullDeck = [];
-
-
-    var randomNum, replaceNum;
-    for (var i = this.playerOne.hand.length - 1; i > 0; i --) {
-      randomNum = Math.floor(Math.random() * (i + 1));
-      replaceNum = this.playerOne.hand[i];
-      this.playerOne.hand[i] = this.playerOne.hand[randomNum];
-      this.playerOne.hand[randomNum] = replaceNum;
-    }
   }
 
   wins() {
@@ -215,7 +163,7 @@ function doubleCard(cardOne, cardTwo) {
 // console.log('false', doubleCard('./assets/red-queen.png', './assets/blue-01.png'));
 // console.log('true', doubleCard('./assets/red-03.png', './assets/green-03.png'))
 
-function sandwhichCards(cardOne, cardThree) {
+function sandwichCards(cardOne, cardThree) {
   var returnCardOneSplit = cardOne.split('-')
   var returnCardThreeSplit = cardThree.split('-')
   if (returnCardOneSplit[1] === returnCardThreeSplit[1]) {
@@ -225,9 +173,17 @@ function sandwhichCards(cardOne, cardThree) {
   }
 }
 
-console.log('true', sandwhichCards('./assets/red-king.png', './assets/green-king.png'));
-console.log('false', sandwhichCards('./assets/red-queen.png', './assets/blue-01.png'));
-console.log('true', sandwhichCards('./assets/red-03.png', './assets/green-03.png'))
+// console.log('true', sandwichCards('./assets/red-king.png', './assets/green-king.png'));
+// console.log('false', sandwichCards('./assets/red-queen.png', './assets/blue-01.png'));
+// console.log('true', sandwichCards('./assets/red-03.png', './assets/green-03.png'))
+
+
+// function whoseTurn() {
+//   var resultOfModulo = game.turn % 2
+//   if (game.turn % 2 === 0) {
+//   } else if (game.turn % 2 === 1) {
+//   }
+// }
 //condition 1
 //if a jack appears either player can slap it
 // if a deck is slapped incorrectly cards go to other player
