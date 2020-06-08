@@ -171,8 +171,37 @@ class Game {
       //   replaceNum = this.playerOne.hand[i];
       //   this.playerOne.hand[i] = this.playerOne.hand[i][randomNum];
       //   this.playerOne.hand[i][randomNum] = replaceNum;
-      //   console.log('shuffle', this.playerOne.hand[i])
-      }
+      //   console.log('shuffle', this.playerOne.hand[i])var shuffle = function (array) {
+
+    var currentIndex = this.playerOne.hand.length
+    var temporaryValue, randomIndex
+
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = this.playerOne.hand[currentIndex];
+      this.playerOne.hand[currentIndex] = this.playerOne.hand[randomIndex];
+      this.playerOne.hand[randomIndex] = temporaryValue;
+    }
+    return this.playerOne.hand
+	// var currentIndex = array.length;
+	// var temporaryValue, randomIndex;
+  //
+	// // While there remain elements to shuffle...
+	// while (0 !== currentIndex) {
+	// 	// Pick a remaining element...
+	// 	randomIndex = Math.floor(Math.random() * currentIndex);
+	// 	currentIndex -= 1;
+  //
+	// 	// And swap it with the current element.
+	// 	temporaryValue = array[currentIndex];
+	// 	array[currentIndex] = array[randomIndex];
+	// 	array[randomIndex] = temporaryValue;
+	// }
+  //
+	// return array;
+
+  };
 
   wins() {
 
