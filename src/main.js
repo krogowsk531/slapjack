@@ -1,60 +1,62 @@
 // var playerOneHand = document.querySelector('.right-side-hand')
 var cards = [
-  './assets/blue-01.png',
-  './assets/blue-02.png',
-  './assets/blue-03.png',
-  './assets/blue-04.png',
-  './assets/blue-05.png',
-  './assets/blue-06.png',
-  './assets/blue-07.png',
-  './assets/blue-08.png',
-  './assets/blue-09.png',
-  './assets/blue-10.png',
+  // './assets/blue-01.png',
+  // './assets/blue-02.png',
+  // './assets/blue-03.png',
+  // './assets/blue-04.png',
+  // './assets/blue-05.png',
+  // './assets/blue-06.png',
+  // './assets/blue-07.png',
+  // './assets/blue-08.png',
+  // './assets/blue-09.png',
+  // './assets/blue-10.png',
   './assets/blue-jack.png',
   './assets/blue-queen.png',
   './assets/blue-king.png',
-  './assets/gold-01.png',
-  './assets/gold-02.png',
-  './assets/gold-03.png',
-  './assets/gold-04.png',
-  './assets/gold-05.png',
-  './assets/gold-06.png',
-  './assets/gold-07.png',
-  './assets/gold-08.png',
-  './assets/gold-09.png',
-  './assets/gold-10.png',
+  // './assets/gold-01.png',
+  // './assets/gold-02.png',
+  // './assets/gold-03.png',
+  // './assets/gold-04.png',
+  // './assets/gold-05.png',
+  // './assets/gold-06.png',
+  // './assets/gold-07.png',
+  // './assets/gold-08.png',
+  // './assets/gold-09.png',
+  // './assets/gold-10.png',
   './assets/gold-jack.png',
   './assets/gold-queen.png',
   './assets/gold-king.png',
-  './assets/green-01.png',
-  './assets/green-02.png',
-  './assets/green-03.png',
-  './assets/green-04.png',
-  './assets/green-05.png',
-  './assets/green-06.png',
-  './assets/green-07.png',
-  './assets/green-08.png',
-  './assets/green-09.png',
-  './assets/green-10.png',
+  // './assets/green-01.png',
+  // './assets/green-02.png',
+  // './assets/green-03.png',
+  // './assets/green-04.png',
+  // './assets/green-05.png',
+  // './assets/green-06.png',
+  // './assets/green-07.png',
+  // './assets/green-08.png',
+  // './assets/green-09.png',
+  // './assets/green-10.png',
   './assets/green-jack.png',
   './assets/green-queen.png',
   './assets/green-king.png',
-  './assets/red-01.png',
-  './assets/red-02.png',
-  './assets/red-03.png',
-  './assets/red-04.png',
-  './assets/red-05.png',
-  './assets/red-06.png',
-  './assets/red-07.png',
-  './assets/red-08.png',
-  './assets/red-09.png',
-  './assets/red-10.png',
+  // './assets/red-01.png',
+  // './assets/red-02.png',
+  // './assets/red-03.png',
+  // './assets/red-04.png',
+  // './assets/red-05.png',
+  // './assets/red-06.png',
+  // './assets/red-07.png',
+  // './assets/red-08.png',
+  // './assets/red-09.png',
+  // './assets/red-10.png',
   './assets/red-jack.png',
   './assets/red-queen.png',
   './assets/red-king.png',
 ];
 
-window.addEventListener('keyup', keyPressed)
+if (typeof window !== 'undefined') {
+  window.addEventListener('keyup', keyPressed)
+}
 
 function keyPressed(event) {
   console.log(event.key)
@@ -152,56 +154,45 @@ class Game {
     //pile is the fullDeck
     //put current fullDeck into this player hand and then shuffle
     //if slap is wrong put current fullDeck into the other players hand and then shuffle
+    console.log('working')
     for (var i = 0; i < this.fullDeck.length; i++) {
-    if (this.fullDeck[this.fullDeck.length - 1].includes('jack.png')) {
-      this.playerOne.hand.push(this.fullDeck[i])
-      console.log('working')
-        }
+      var cardOne = this.fullDeck[this.fullDeck.length -1]
+      var cardTwo = this.fullDeck[this.fullDeck.length -2]
+      var cardThree = this.fullDeck[this.fullDeck.length -3]
+      if (this.fullDeck[this.fullDeck.length - 1].includes('jack.png')) {
+        this.playerOne.hand.push(this.fullDeck[i])
+        // console.log('working')
+      }
+       else if (doubleCard(cardOne, cardTwo)) {
+        this.playerOne.hand.push(this.fullDeck[i])
+        console.log('doubleCard')
+      }
+       else if (sandwhichCards(cardOne, cardThree)) {
+         this.playerOne.hand.push(this.fullDeck[i])
+         console.log('sandwhich')
+       }
+
+      //similar to double card, instead of having cardOne and cardTwo you will have card one and card three
+      //use a similar funtion and process as doubleCard
+
       // this.hand.push(this.fullDeck.shift())
       //every card from fullDeck is in hand and there are no cards in fullDeck
-    //  **take fullDeck and shuffle to this.hand**
+      //  **take fullDeck and shuffle to this.hand**
       //every card we now have in our this.hand needs to be shuffled
-    // } else {
+      // } else {
       //**take fullDeck and shuffle to other hand**
-      }
-      this.fullDeck = [];
-      // var randomNum, replaceNum;
-      // for (var i = this.playerOne.hand.length - 1; i > 0; i --) {
-      //   randomNum = Math.floor(Math.random() * (i + 1));
-      //   replaceNum = this.playerOne.hand[i];
-      //   this.playerOne.hand[i] = this.playerOne.hand[i][randomNum];
-      //   this.playerOne.hand[i][randomNum] = replaceNum;
-      //   console.log('shuffle', this.playerOne.hand[i])var shuffle = function (array) {
-
-    var currentIndex = this.playerOne.hand.length
-    var temporaryValue, randomIndex
-
-    while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-      temporaryValue = this.playerOne.hand[currentIndex];
-      this.playerOne.hand[currentIndex] = this.playerOne.hand[randomIndex];
-      this.playerOne.hand[randomIndex] = temporaryValue;
     }
-    return this.playerOne.hand
-	// var currentIndex = array.length;
-	// var temporaryValue, randomIndex;
-  //
-	// // While there remain elements to shuffle...
-	// while (0 !== currentIndex) {
-	// 	// Pick a remaining element...
-	// 	randomIndex = Math.floor(Math.random() * currentIndex);
-	// 	currentIndex -= 1;
-  //
-	// 	// And swap it with the current element.
-	// 	temporaryValue = array[currentIndex];
-	// 	array[currentIndex] = array[randomIndex];
-	// 	array[randomIndex] = temporaryValue;
-	// }
-  //
-	// return array;
+    this.fullDeck = [];
 
-  };
+
+    var randomNum, replaceNum;
+    for (var i = this.playerOne.hand.length - 1; i > 0; i --) {
+      randomNum = Math.floor(Math.random() * (i + 1));
+      replaceNum = this.playerOne.hand[i];
+      this.playerOne.hand[i] = this.playerOne.hand[randomNum];
+      this.playerOne.hand[randomNum] = replaceNum;
+    }
+  }
 
   wins() {
 
@@ -211,7 +202,32 @@ class Game {
   }
 }
 
+function doubleCard(cardOne, cardTwo) {
+  var returnCardOneSplit = cardOne.split('-')
+  var returnCardTwoSplit = cardTwo.split('-')
+  if (returnCardOneSplit[1] === returnCardTwoSplit[1]) {
+    return true;
+  } else {
+    return false;
+  }
+}
+// console.log('true', doubleCard('./assets/red-king.png', './assets/green-king.png'));
+// console.log('false', doubleCard('./assets/red-queen.png', './assets/blue-01.png'));
+// console.log('true', doubleCard('./assets/red-03.png', './assets/green-03.png'))
 
+function sandwhichCards(cardOne, cardThree) {
+  var returnCardOneSplit = cardOne.split('-')
+  var returnCardThreeSplit = cardThree.split('-')
+  if (returnCardOneSplit[1] === returnCardThreeSplit[1]) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+console.log('true', sandwhichCards('./assets/red-king.png', './assets/green-king.png'));
+console.log('false', sandwhichCards('./assets/red-queen.png', './assets/blue-01.png'));
+console.log('true', sandwhichCards('./assets/red-03.png', './assets/green-03.png'))
 //condition 1
 //if a jack appears either player can slap it
 // if a deck is slapped incorrectly cards go to other player
