@@ -2,66 +2,52 @@ body {
   background-image: url(https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?ixlib=rb-1.2.1&auto=format&fit=crop&w=2755&q=80);
 }
 
-.cards-grid {
-  /* display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  justify-items: stretch;
-  align-items: center; */
-
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-/* main {
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-}
-
-.game-area {
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-
+p {
+  color: #3a0c52;
+  font-size: 20px;
+  margin-top: 10px;
+  width: 90%;
+  text-align: center;
 }
 
 h1 {
-
+  color: #e80c85;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* section {
+.cards-grid {
   display: grid;
-  flex-grow: 3;
-  grid-gap: 20px;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 20px;
-} */
+  flex-grow: 4;
+  grid-gap: 95px;
+  grid-template-columns: auto auto auto;
+  justify-content: space-between;
+  padding: 85px;
+}
 
-/* .top-card {
+.hidden {
+  display: none;
+}
+
+.top-card {
   display: flex;
   flex-direction: column;
-  height: 100%;
   justify-content: space-between;
   object-fit: cover;
   width: 100%;
   border-radius: 4px;
-  box-shadow: 0 0 0.5em 0.5em #00c2c7
+  box-shadow: 0 0 0.5em 0.5em #00c2c7;
 }
 
 .card-deck {
-  background-color: white;
-  box-shadow: 1px 1px 1px 1px #9E9E9E;
   display: flex;
+  align-content: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 10px;
+  height: 375px;
+  width: 250px;
   flex-direction: column;
-  height: 475px;
-  position: relative;
 }
-
-
-.cards-grid {
-  display: grid;
-  flex-grow: 3;
-  grid-gap: 10px;
-  grid-template-columns: auto auto auto;
-  padding: 20px;
-} */ */
