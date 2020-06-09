@@ -2,25 +2,29 @@
 //If a player slaps when neither a Jack, Double, or Sandwich is on top of the central pile, the player who slapped loses the card on top of their hand and it is added to the bottom of their opponent’s hand.
 
 
+var gameArea = document.querySelector('.game-area');
 
 
 
-
-console.log('is working', cards)
+// console.log('is working', cards)
 
 // if (typeof window !== 'undefined') {
 //   window.addEventListener('keyup', keyPressed)
 // }
 
-
+// window.onload = gameOne.deal()
 window.addEventListener('keyup', keyPressed)
 
 function keyPressed(event) {
   console.log(event.key)
-  if (event.key === 'q') {
+  if (event.key === 'q' && whoseTurn() === 'PlayerOneTurn') {
+    gameOne.takeTurn();
     gameOne.playerOne.playCard();
-  } else if (event.key === 'p') {
+    showCards();
+  } else if (event.key === 'p' && whoseTurn() === 'PlayerTwoTurn') {
+    gameOne.takeTurn();
     gameOne.playerTwo.playCard();
+    showCards();
   } else if (event.key === 'f') {
     gameOne.slap('playerOne');
   } else if (event.key === 'j') {
@@ -96,7 +100,9 @@ class Game {
     console.log('playertwohand', this.playerTwo.hand)
   }
   takeTurn() {
+
     this.turn++
+
   }
   toMiddle() {
 
@@ -112,20 +118,23 @@ class Game {
     //put current fullDeck into this player hand and then shuffle
     //if slap is wrong put current fullDeck into the other players hand and then shuffle
     console.log('working')
+    console.log('aFullDeck', this.fullDeck)
       var cardOne = this.fullDeck[this.fullDeck.length -1]
       var cardTwo = this.fullDeck[this.fullDeck.length -2]
       var cardThree = this.fullDeck[this.fullDeck.length -3]
-      if (this.fullDeck[this.fullDeck.length - 1].includes('jack.png') || doubleCard(cardOne, cardTwo) || sandwichCards(cardOne, cardThree)) {
+      if (this.fullDeck[this.fullDeck.length - 1].includes('jack.png') || isDoubleCard(this.fullDeck) || sandwichCards(this.fullDeck)) {
         for (var i = 0; i < this.fullDeck.length; i++) {
         this.playerOne.hand.push(this.fullDeck[i])
       }
         this.shuffle(this.playerOne.hand)
+        this.fullDeck = [];
         // console.log('working')
        } else {
          //if none of the conditions are met and you slap
          //the player loses the card off the top of their hand (index 0)
          //the other player gains the card at the bottom of their hand (deck length -1)
-         this.playerTwo.hand.push(this.playerOne.hand[0])
+         var singleCard = this.playerOne.hand.shift()
+         this.playerTwo.hand.push(singleCard)
          console.log('misfire')
        }
 
@@ -138,8 +147,8 @@ class Game {
       //every card we now have in our this.hand needs to be shuffled
       // } else {
       //**take fullDeck and shuffle to other hand**
-    
-    this.fullDeck = [];
+
+
   }
 
   wins() {
@@ -150,7 +159,14 @@ class Game {
   }
 }
 
-function doubleCard(cardOne, cardTwo) {
+
+
+function isDoubleCard(fullDeck) {
+  if (fullDeck.length < 2) {
+    return false;
+  }
+  var cardOne = fullDeck[fullDeck.length -1]
+  var cardTwo = fullDeck[fullDeck.length -2]
   var returnCardOneSplit = cardOne.split('-')
   var returnCardTwoSplit = cardTwo.split('-')
   if (returnCardOneSplit[1] === returnCardTwoSplit[1]) {
@@ -159,11 +175,19 @@ function doubleCard(cardOne, cardTwo) {
     return false;
   }
 }
+
+//make sure the deck has two cards
+
 // console.log('true', doubleCard('./assets/red-king.png', './assets/green-king.png'));
 // console.log('false', doubleCard('./assets/red-queen.png', './assets/blue-01.png'));
 // console.log('true', doubleCard('./assets/red-03.png', './assets/green-03.png'))
 
-function sandwichCards(cardOne, cardThree) {
+function sandwichCards(fullDeck) {
+  if (fullDeck.length < 3) {
+    return false;
+  }
+  var cardOne = fullDeck[fullDeck.length -1]
+  var cardThree = fullDeck[fullDeck.length -3]
   var returnCardOneSplit = cardOne.split('-')
   var returnCardThreeSplit = cardThree.split('-')
   if (returnCardOneSplit[1] === returnCardThreeSplit[1]) {
@@ -173,17 +197,24 @@ function sandwichCards(cardOne, cardThree) {
   }
 }
 
+//deck needs to start with at least three cards
+
 // console.log('true', sandwichCards('./assets/red-king.png', './assets/green-king.png'));
 // console.log('false', sandwichCards('./assets/red-queen.png', './assets/blue-01.png'));
 // console.log('true', sandwichCards('./assets/red-03.png', './assets/green-03.png'))
 
+var gameOne = new Game ();
 
-// function whoseTurn() {
-//   var resultOfModulo = game.turn % 2
-//   if (game.turn % 2 === 0) {
-//   } else if (game.turn % 2 === 1) {
-//   }
-// }
+function whoseTurn() {
+  var resultOfModulo = gameOne.turn % 2
+  if (gameOne.turn % 2 === 0) {
+    return 'PlayerOneTurn'
+  } else if (gameOne.turn % 2 === 1) {
+    return 'PlayerTwoTurn'
+  }
+}
+//
+whoseTurn();
 //condition 1
 //if a jack appears either player can slap it
 // if a deck is slapped incorrectly cards go to other player
@@ -193,6 +224,40 @@ function sandwichCards(cardOne, cardThree) {
 
 //playerOne hand at zero push it into centerDeck
 
+function showCards(event) {
+  console.log('showCards')
+  gameArea.innerHTML = `
+    <article class="card-deck left-side-deck">
+      <img class="top-card" src="./assets/back.png" alt="Card on Top of Deck"/>
+      <div>
+      <p>${0} Wins</p>
+    </div>
+    </article>
+    <article class="card-deck middle-deck">
+      <img class="top-card" src="${gameOne.fullDeck[gameOne.fullDeck.length - 1]}" alt="Card on Top of Deck"/>
+    </article>
+    <article class="card-deck right-side-deck">
+      <img class="top-card" src="./assets/back.png" alt="Card on Top of Deck"/>
+      <p>${0} Wins</p>
+    </article>
+  `
+}
+
+
+function clearFullDeck() {
+  if (gameOne.fullDeck.length === 0) {
+    centerDeck.document.querySelector('.middle-deck')
+  }
+}
+
+// function showCards (event) {
+//   var cardsArray = deck.cards;
+//   for (var i = 0; i < cardsArray.length; i++) {
+//   gameSpace.innerHTML+= `<div class="cards card-${cardsArray[i].cardId}" data-id="${cardsArray[i].matchInfo}" data-index="${cardsArray[i].cardId}">
+//     <p class="b-class">B</p>
+//   </div>`
+//   }
+// }
 
 
 
@@ -202,6 +267,3 @@ function sandwichCards(cardOne, cardThree) {
 // var playerOne = new Player();
 // // playerOneDeal();
 // console.log(playerOne);
-
-
-var gameOne = new Game ();
