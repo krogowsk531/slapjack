@@ -4,13 +4,10 @@ body {
 
 p {
   color: #3a0c52;
-  /* text-align: center; */
-
-  display: flex;
-  justify-content: center;
   font-size: 20px;
   margin-top: 10px;
   width: 90%;
+  text-align: center;
 }
 
 h1 {
@@ -21,11 +18,6 @@ h1 {
 }
 
 .cards-grid {
-  /* display: grid;
-  grid-gap: 10px;
-  grid-template-columns: 1fr 1fr 1fr; */
-
-
   display: grid;
   flex-grow: 4;
   grid-gap: 95px;
@@ -45,16 +37,10 @@ h1 {
   object-fit: cover;
   width: 100%;
   border-radius: 4px;
-  box-shadow: 0 0 0.5em 0.5em #00c2c7
+  box-shadow: 0 0 0.5em 0.5em #00c2c7;
 }
-.card-deck {
-  /* display: flex;
-  flex-direction: column;
-  height: 70%;
-  justify-content: space-between;
-  object-fit: cover;
-  width: 100%; */
 
+.card-deck {
   display: flex;
   align-content: center;
   background-position: center;
@@ -63,64 +49,5 @@ h1 {
   border-radius: 10px;
   height: 375px;
   width: 250px;
-}
-
-/* .middle-deck {
-  margin-bottom: 65px;
-  height: 375px;
-} */
-
-
-/* main {
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-}
-
-.game-area {
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
-
-}
-
-h1 {
-
-}
-
-/* section {
-  display: grid;
-  flex-grow: 3;
-  grid-gap: 20px;
-  grid-template-columns: repeat(3, 1fr);
-  padding: 20px;
-} */
-
-/* .top-card {
-  display: flex;
   flex-direction: column;
-  height: 100%;
-  justify-content: space-between;
-  object-fit: cover;
-  width: 100%;
-  border-radius: 4px;
-  box-shadow: 0 0 0.5em 0.5em #00c2c7
 }
-
-.card-deck {
-  background-color: white;
-  box-shadow: 1px 1px 1px 1px #9E9E9E;
-  display: flex;
-  flex-direction: column;
-  height: 475px;
-  position: relative;
-}
-
-
-.cards-grid {
-  display: grid;
-  flex-grow: 3;
-  grid-gap: 10px;
-  grid-template-columns: auto auto auto;
-  padding: 20px;
-} */
