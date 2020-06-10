@@ -2,7 +2,7 @@
 //If a player slaps when neither a Jack, Double, or Sandwich is on top of the central pile, the player who slapped loses the card on top of their hand and it is added to the bottom of their opponent’s hand.
 
 
-var gameArea = document.querySelector('.game-area');
+
 
 
 
@@ -12,7 +12,7 @@ var gameArea = document.querySelector('.game-area');
 //   window.addEventListener('keyup', keyPressed)
 // }
 
-// window.onload = gameOne.deal()
+window.onload = firstView();
 window.addEventListener('keyup', keyPressed)
 
 function keyPressed(event) {
@@ -20,19 +20,17 @@ function keyPressed(event) {
   if (event.key === 'q' && whoseTurn() === 'PlayerOneTurn') {
     gameOne.takeTurn();
     gameOne.playerOne.playCard();
-    showCards();
   } else if (event.key === 'p' && whoseTurn() === 'PlayerTwoTurn') {
     gameOne.takeTurn();
     gameOne.playerTwo.playCard();
-    showCards();
   } else if (event.key === 'f') {
     gameOne.slap('playerOne');
   } else if (event.key === 'j') {
     gameOne.slap('playerTwo');
-  }
 
-  //if event.key is some letter do the player specific event
-  //else do nothing
+  }
+  showCards();
+  hideDeckIfEmpty();
 }
 
 class Player {
@@ -226,38 +224,58 @@ whoseTurn();
 
 function showCards(event) {
   console.log('showCards')
+  var gameArea = document.querySelector('.game-area');
   gameArea.innerHTML = `
     <article class="card-deck left-side-deck">
       <img class="top-card" src="./assets/back.png" alt="Card on Top of Deck"/>
-      <div>
       <p>${0} Wins</p>
-    </div>
+      <p>${gameOne.playerOne.hand.length} Cards</p>
     </article>
     <article class="card-deck middle-deck">
       <img class="top-card" src="${gameOne.fullDeck[gameOne.fullDeck.length - 1]}" alt="Card on Top of Deck"/>
+      <p>${gameOne.fullDeck.length} Cards</p>
     </article>
     <article class="card-deck right-side-deck">
       <img class="top-card" src="./assets/back.png" alt="Card on Top of Deck"/>
       <p>${0} Wins</p>
+      <p>${gameOne.playerTwo.hand.length} Cards</p>
     </article>
   `
 }
 
 
-function clearFullDeck() {
+function firstView() {
+  console.log('viewload')
+  var seeCenter = document.querySelector('.middle-deck');
+
+  var seeLeft = document.querySelector('.left-side-deck');
+  var seeRight = document.querySelector('.right-side-deck');
+  console.log(seeCenter, seeLeft, seeRight)
+  seeCenter.classList.add('hidden')
+  seeLeft.classList.remove('hidden')
+  seeRight.classList.remove('hidden')
+}
+
+//onload I want to see the two decks but not the center
+
+// function view() {
+//   showCards();
+// }
+// function createDeck() {
+//   startTime = new Date();
+//   deck.fillDeck();
+//   showCards();
+// }
+
+function hideDeckIfEmpty() {
   if (gameOne.fullDeck.length === 0) {
-    centerDeck.document.querySelector('.middle-deck')
+    document.querySelector('.middle-deck').classList.add("hidden")
+  } else {
+    document.querySelector('.middle-deck').classList.remove("hidden")
   }
 }
 
-// function showCards (event) {
-//   var cardsArray = deck.cards;
-//   for (var i = 0; i < cardsArray.length; i++) {
-//   gameSpace.innerHTML+= `<div class="cards card-${cardsArray[i].cardId}" data-id="${cardsArray[i].matchInfo}" data-index="${cardsArray[i].cardId}">
-//     <p class="b-class">B</p>
-//   </div>`
-//   }
-// }
+
 
 
 
