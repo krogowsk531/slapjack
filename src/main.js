@@ -2,7 +2,7 @@
 //If a player slaps when neither a Jack, Double, or Sandwich is on top of the central pile, the player who slapped loses the card on top of their hand and it is added to the bottom of their opponent’s hand.
 
 
-var gameArea = document.querySelector('.game-area');
+
 
 
 
@@ -12,152 +12,30 @@ var gameArea = document.querySelector('.game-area');
 //   window.addEventListener('keyup', keyPressed)
 // }
 
-// window.onload = gameOne.deal()
+window.onload = firstView();
 window.addEventListener('keyup', keyPressed)
 
 function keyPressed(event) {
   console.log(event.key)
-  if (event.key === 'q' && whoseTurn() === 'PlayerOneTurn') {
+  if (event.key === 'q' && whoseTurn() === 'PlayerOneTurn' && gameOne.playerOne.hand.length > 0) {
     gameOne.takeTurn();
     gameOne.playerOne.playCard();
-    showCards();
-  } else if (event.key === 'p' && whoseTurn() === 'PlayerTwoTurn') {
+  } else if (event.key === 'p' && whoseTurn() === 'PlayerTwoTurn' && gameOne.playerTwo.hand.length > 0) {
     gameOne.takeTurn();
     gameOne.playerTwo.playCard();
-    showCards();
   } else if (event.key === 'f') {
     gameOne.slap('playerOne');
   } else if (event.key === 'j') {
     gameOne.slap('playerTwo');
-  }
-
-  //if event.key is some letter do the player specific event
-  //else do nothing
-}
-
-class Player {
-  constructor() {
-    this.id = Date.now();
-    this.wins = 0;
-    this.hand = [];
-    // this.playerOne = new Player();
-    // this.playerTwo = new Player();
-    // console.log('hand', this.hand)
 
   }
-  playCard() {
-    // console.log('hand', this.hand)
-    var card = this.hand.shift()
-    gameOne.fullDeck.push(card);
-    // gameOne.fullDeck.length = 0;
-    console.log('card', card)
-    // console.log('centerDeck', centerDeck);
-    //player one flips a card
-    //it is added to the middle pile array
-    //it is removed from playerOne hand array
-    //player two flips a card
-    //it is added to the middle pile array
-    //it is removed from playerTwo hand array
-  }
-  saveWinsToStorage() {
-
-  }
-  winGame() {
-    this.wins++;
-  }
+  showCards();
+  hideDeckIfEmpty();
 }
 
 
-class Game {
-  constructor() {
-    this.fullDeck = cards;
-    this.playerOne = new Player();
-    this.playerTwo = new Player();
-    this.turn = 0;
-    this.shuffle(this.fullDeck);
-    this.deal();
-    console.log('allcards', this.fullDeck)
-  }
-  shuffle(deck) {
-    var randomNum, replaceNum;
-    for (var i = deck.length - 1; i > 0; i --) {
-      randomNum = Math.floor(Math.random() * (i + 1));
-      replaceNum = deck[i];
-      deck[i] = deck[randomNum];
-      deck[randomNum] = replaceNum;
-    }
-  }
-  deal() {
-    var deckNumber = this.fullDeck.length;
-    for (var i = 0; i < deckNumber; i++) {
-      if (i % 2 === 0) {
-        this.playerOne.hand.push(this.fullDeck.shift());
-      } else if (i % 2 === 1) {
-        this.playerTwo.hand.push(this.fullDeck.shift());
-      }
-    }
-    console.log('playerOnehand', this.playerOne.hand)
-    console.log('playertwohand', this.playerTwo.hand)
-  }
-  takeTurn() {
-
-    this.turn++
-
-  }
-  toMiddle() {
-
-  }
-  slap(player) {
-    console.log('SlapJack')
-    // var card = this.hand.shift()
-    // gameOne.fullDeck.push(card);
-    //if jack is on top then get the pile and suffle it back into the players deck
-    //jack would be on top of the fullDeck (fullDeck.length -1]
-    //would be the last card in (so the last element in the fullDeck array)
-    //pile is the fullDeck
-    //put current fullDeck into this player hand and then shuffle
-    //if slap is wrong put current fullDeck into the other players hand and then shuffle
-    console.log('working')
-    console.log('aFullDeck', this.fullDeck)
-      var cardOne = this.fullDeck[this.fullDeck.length -1]
-      var cardTwo = this.fullDeck[this.fullDeck.length -2]
-      var cardThree = this.fullDeck[this.fullDeck.length -3]
-      if (this.fullDeck[this.fullDeck.length - 1].includes('jack.png') || isDoubleCard(this.fullDeck) || sandwichCards(this.fullDeck)) {
-        for (var i = 0; i < this.fullDeck.length; i++) {
-        this.playerOne.hand.push(this.fullDeck[i])
-      }
-        this.shuffle(this.playerOne.hand)
-        this.fullDeck = [];
-        // console.log('working')
-       } else {
-         //if none of the conditions are met and you slap
-         //the player loses the card off the top of their hand (index 0)
-         //the other player gains the card at the bottom of their hand (deck length -1)
-         var singleCard = this.playerOne.hand.shift()
-         this.playerTwo.hand.push(singleCard)
-         console.log('misfire')
-       }
-
-      //similar to double card, instead of having cardOne and cardTwo you will have card one and card three
-      //use a similar funtion and process as doubleCard
-
-      // this.hand.push(this.fullDeck.shift())
-      //every card from fullDeck is in hand and there are no cards in fullDeck
-      //  **take fullDeck and shuffle to this.hand**
-      //every card we now have in our this.hand needs to be shuffled
-      // } else {
-      //**take fullDeck and shuffle to other hand**
 
 
-  }
-
-  wins() {
-
-  }
-  newGame(){
-
-  }
-}
 
 
 
@@ -226,38 +104,71 @@ whoseTurn();
 
 function showCards(event) {
   console.log('showCards')
+  var gameArea = document.querySelector('.game-area');
   gameArea.innerHTML = `
     <article class="card-deck left-side-deck">
       <img class="top-card" src="./assets/back.png" alt="Card on Top of Deck"/>
-      <div>
       <p>${0} Wins</p>
-    </div>
+      <p>${gameOne.playerOne.hand.length} Cards</p>
     </article>
     <article class="card-deck middle-deck">
       <img class="top-card" src="${gameOne.fullDeck[gameOne.fullDeck.length - 1]}" alt="Card on Top of Deck"/>
+      <p>${gameOne.fullDeck.length} Cards</p>
     </article>
     <article class="card-deck right-side-deck">
       <img class="top-card" src="./assets/back.png" alt="Card on Top of Deck"/>
       <p>${0} Wins</p>
+      <p>${gameOne.playerTwo.hand.length} Cards</p>
     </article>
   `
 }
 
 
-function clearFullDeck() {
-  if (gameOne.fullDeck.length === 0) {
-    centerDeck.document.querySelector('.middle-deck')
-  }
+function firstView() {
+  console.log('viewload')
+  var seeCenter = document.querySelector('.middle-deck');
+
+  var seeLeft = document.querySelector('.left-side-deck');
+  var seeRight = document.querySelector('.right-side-deck');
+  console.log(seeCenter, seeLeft, seeRight)
+  seeCenter.classList.add('hidden')
+  seeLeft.classList.remove('hidden')
+  seeRight.classList.remove('hidden')
 }
 
-// function showCards (event) {
-//   var cardsArray = deck.cards;
-//   for (var i = 0; i < cardsArray.length; i++) {
-//   gameSpace.innerHTML+= `<div class="cards card-${cardsArray[i].cardId}" data-id="${cardsArray[i].matchInfo}" data-index="${cardsArray[i].cardId}">
-//     <p class="b-class">B</p>
-//   </div>`
-//   }
+
+
+//onload I want to see the two decks but not the center
+
+// function view() {
+//   showCards();
 // }
+// function createDeck() {
+//   startTime = new Date();
+//   deck.fillDeck();
+//   showCards();
+// }
+
+function hideDeckIfEmpty() {
+  if (gameOne.fullDeck.length === 0) {
+    document.querySelector('.middle-deck').classList.add("hidden")
+  } else {
+    document.querySelector('.middle-deck').classList.remove("hidden")
+  }
+  if (gameOne.playerTwo.hand.length === 0) {
+    document.querySelector('.right-side-deck').classList.add("hidden")
+  } else {
+    document.querySelector('.right-side-deck').classList.remove("hidden")
+  }
+  if (gameOne.playerOne.hand.length === 0) {
+    document.querySelector('.left-side-deck').classList.add("hidden")
+  } else {
+    document.querySelector('.left-side-deck').classList.remove("hidden")
+  }
+
+}
+
+
 
 
 
