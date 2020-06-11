@@ -3,7 +3,7 @@ class Player {
     this.id = Date.now();
     this.wins = 0;
     this.hand = [];
-    
+
     // this.playerTwo = new Player();
     // console.log('hand', this.hand)
 
@@ -24,7 +24,9 @@ class Player {
   }
   saveWinsToStorage() {
 
+  }
   winGame() {
+    console.log('player wins')
     this.wins++;
   }
 }

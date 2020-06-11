@@ -37,7 +37,16 @@ class Game {
   toMiddle() {
 
   }
-  slap(player) {
+  slap(playerStr) {
+    if (playerStr === 'playerOne') {
+      var playerMain = this.playerOne
+      var playerOpponent = this.playerTwo
+    } else if (playerStr === 'playerTwo'){
+      var playerMain = this.playerTwo
+      var playerOpponent = this.playerOne
+    }
+
+
     console.log('SlapJack')
     // var card = this.hand.shift()
     // gameOne.fullDeck.push(card);
@@ -54,17 +63,17 @@ class Game {
       var cardThree = this.fullDeck[this.fullDeck.length -3]
       if (this.fullDeck[this.fullDeck.length - 1].includes('jack.png') || isDoubleCard(this.fullDeck) || sandwichCards(this.fullDeck)) {
         for (var i = 0; i < this.fullDeck.length; i++) {
-        this.playerOne.hand.push(this.fullDeck[i])
+          playerMain.hand.push(this.fullDeck[i])
       }
-        this.shuffle(this.playerOne.hand)
+        this.shuffle(playerMain.hand)
         this.fullDeck = [];
         // console.log('working')
        } else {
          //if none of the conditions are met and you slap
          //the player loses the card off the top of their hand (index 0)
          //the other player gains the card at the bottom of their hand (deck length -1)
-         var singleCard = this.playerOne.hand.shift()
-         this.playerTwo.hand.push(singleCard)
+         var singleCard = playerMain.hand.shift()
+         playerOpponent.hand.push(singleCard)
          console.log('misfire')
        }
 
@@ -80,11 +89,7 @@ class Game {
 
 
   }
-
-  wins() {
-
-  }
-  newGame(){
+  newGame() {
 
   }
 }

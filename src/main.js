@@ -29,11 +29,21 @@ function keyPressed(event) {
     gameOne.slap('playerTwo');
 
   }
+  loseCards();
   showCards();
   hideDeckIfEmpty();
 }
 
 
+function loseCards() {
+  console.log('win game')
+  if(gameOne.playerOne.hand.length === 0) {
+    gameOne.playerTwo.winGame();
+    //restart the game
+  } else if (gameOne.playerTwo.hand.length === 0) {
+    gameOne.playerOne.winGame();
+  }
+}
 
 
 
@@ -108,7 +118,7 @@ function showCards(event) {
   gameArea.innerHTML = `
     <article class="card-deck left-side-deck">
       <img class="top-card" src="./assets/back.png" alt="Card on Top of Deck"/>
-      <p>${0} Wins</p>
+      <p>${gameOne.playerOne.wins} Wins</p>
       <p>${gameOne.playerOne.hand.length} Cards</p>
     </article>
     <article class="card-deck middle-deck">
@@ -117,7 +127,7 @@ function showCards(event) {
     </article>
     <article class="card-deck right-side-deck">
       <img class="top-card" src="./assets/back.png" alt="Card on Top of Deck"/>
-      <p>${0} Wins</p>
+      <p>${gameOne.playerTwo.wins} Wins</p>
       <p>${gameOne.playerTwo.hand.length} Cards</p>
     </article>
   `
