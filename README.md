@@ -10,7 +10,7 @@ This was a solo project that was designed to mimic the real life game of SlapJac
 
 **Project Goals**
 
-* Create a functioning game with the use of HTML, CSS and JavaScript across multiple classes.
+* Create a functioning game with the use of HTML, CSS and JavaScript.
 * Write DRY JavaScript and use event delegation for similar event listeners.
 * Understand the difference between the DOM and the data model and how the data is displayed on the DOM.
 * Use logic to work through many conditionals.
@@ -18,42 +18,48 @@ This was a solo project that was designed to mimic the real life game of SlapJac
 
 **Challenges**
 
-* Mastering the GitHub workflow with many branches and more than one team member.
-* We had to add more code than desired in order to make sure that the app did not include bugs.
-* Getting the form generated cover to display was the most challenging part of functionality in the project.
+* Meeting all of the conditions for the game.
+* Building the majority of the game playable without manipulating the DOM.
+* Using multiple classes and knowing which class should hold what information.
 
 **Wins**
 
-* Working with JS in a collaborative environment to a deadline.
-* Teamwork that lead to professional development growth.
-* All functionality is working through Iteration 5.
+* Limiting global variables to one instance of a game.
+* Refactoring to make sure that code is dynamic.
+* Created a playable game that can be extended at a later time.
 
 **Programming Languages Used**
 
-HTML
-CSS
-JavaScript
+* HTML
+* CSS
+* JavaScript
 
 **Other Important Features Implemented**
 
-Saving and removing cover components from arrays respective of functionality.
-Smooth movement between page transition utilizing buttons.
+* Win display is functional
+* Added a card counter so you can see how many cards are contained in each deck
 
-## In Action
+## Game Screenshots
 
-**Randomize and Save Covers**
+**Game Start**
 
-![Randomize and Save Covers](https://media.giphy.com/media/mFeIf7Rdc2jGYTQwrh/giphy.gif)
+![Game Start](./assets/Slapjack4.png)
 
-**Create Your Own Cover**
+**Game in Play**
 
-![Create Your Own Cover](https://media.giphy.com/media/LoD7JgRIgtmG0dT1yI/giphy.gif)
+![Game Win](./assets/Slapjack5.png)
 
 
 ## Comps Given
 
-![Home View](https://frontend.turing.io/projects/module-1/assets/romcom/romcom-random.png)
+**Game Start View**
 
-![Form View](https://frontend.turing.io/projects/module-1/assets/romcom/romcom-form.png)
+![Game Start View](./assets/Slapjack3.png)
 
-![Saved Covers View](https://frontend.turing.io/projects/module-1/assets/romcom/romcom-saved.png)
+**Bad Slap View**
+
+![Bad Slap](./assets/Slapjack2.png)
+
+**Win View**
+
+![Win View](./assets/Slapjack1.png)
