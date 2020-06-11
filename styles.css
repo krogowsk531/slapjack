@@ -6,14 +6,14 @@ p {
   color: #3a0c52;
   font-size: 20px;
   margin-top: 10px;
-  width: 90%;
   text-align: center;
+  width: 90%;
 }
 
 h1 {
+  align-items: center;
   color: #e80c85;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
@@ -31,23 +31,23 @@ h1 {
 }
 
 .top-card {
+  border-radius: 4px;
+  box-shadow: 0 0 0.5em 0.5em #00c2c7;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   object-fit: cover;
   width: 100%;
-  border-radius: 4px;
-  box-shadow: 0 0 0.5em 0.5em #00c2c7;
 }
 
 .card-deck {
-  display: flex;
   align-content: center;
   background-position: center;
+  border-radius: 10px;
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
   height: 375px;
   width: 250px;
-  flex-direction: column;
 }
